@@ -24,10 +24,10 @@ COPY go.sum .
 RUN go mod download
 
 COPY . .
-RUN make test build.$ARCH
+RUN make build.amd64
 
 # final image
-FROM $ARCH/alpine:3.17
+FROM amd64/alpine:3.17
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=builder /sigs.k8s.io/external-dns/build/external-dns /bin/external-dns
